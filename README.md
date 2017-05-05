@@ -1,6 +1,6 @@
-Yii2 Alfabank Payment
+Yii2 Sberbank Payment
 =====================
-Payment widget for alfabank 
+Payment widget for sberbank
 
 Installation
 ------------
@@ -10,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist sibds/yii2-alfabank-payment "*"
+php composer.phar require --prefer-dist sibds/yii2-sberbank-payment "*"
 ```
 
 or add
 
 ```
-"sibds/yii2-alfabank-payment": "*"
+"sibds/yii2-sberbank-payment": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -28,4 +28,4 @@ Usage
 Once the extension is installed, simply use it in your code by  :
 
 ```php
-<?= \sibds\payment\alfabank\AutoloadExample::widget(); ?>```
+<?= \sibds\payment\sberbank\AutoloadExample::widget(); ?>```
