@@ -1,0 +1,22 @@
+{
+    "name": "sibds/yii2-sberbank-payment",
+    "description": "Payment widget for sberbank ",
+    "type": "yii2-extension",
+    "keywords": ["yii2"," payment"," sberbank"," sibds"," mazurva"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Vadim Mazur",
+            "email": "mazurva@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0",
+        "omgdef/yii2-sberbank-payment": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "sibds\\payment\\sberbank\\": ""
+        }
+    }
+}
