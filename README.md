@@ -28,4 +28,5 @@ Usage
 Once the extension is installed, simply use it in your code by  :
 
 ```php
-<?= \sibds\payment\sberbank\AutoloadExample::widget(); ?>```
+<?= \sibds\payment\sberbank\AutoloadExample::widget(); ?>
+```
