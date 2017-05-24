@@ -12,7 +12,7 @@ use yii;
 
 class Module extends \yii\base\Module
 {
-    public $gatewayUrl = '';
+    public $gatewayUrl = 'https://securepayments.sberbank.ru/payment/rest/';
     public $gatewayTestUrl = 'https://3dsec.sberbank.ru/payment/rest/';
     public $testServer = false;
     public $adminRoles = ['admin', 'superadmin'];
