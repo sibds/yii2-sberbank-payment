@@ -4,6 +4,7 @@ namespace sibds\payment\sberbank\controllers;
 use yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\base\Event;
 
 class SberbankController extends Controller
 {
@@ -36,7 +37,10 @@ class SberbankController extends Controller
 
             $orderModel->setPaymentStatus('yes');
             $orderModel->save(false);
-
+            
+            $event = new Event();
+            $event->sender = $orderModel;
+            Yii::$app->trigger('successPayment', $event);
 
             return $this->redirect($module->thanksUrl);
         }
