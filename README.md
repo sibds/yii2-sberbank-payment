@@ -30,3 +30,9 @@ Once the extension is installed, simply use it in your code by  :
 ```php
 <?= \sibds\payment\sberbank\AutoloadExample::widget(); ?>
 ```
+
+Support for events about the successful payment. Add the settings app.:
+```php
+// The event of successful payment
+'on successPayment' => ['\frontend\controllers\ShopController', 'successPayment'],
+```
