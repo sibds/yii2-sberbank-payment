@@ -10,6 +10,7 @@ class ReturnForm extends \yii\base\Widget
     public $description = '';
     public $orderModel;
     public $autoSend = false;
+    public $type;
 
     public function init()
     {
@@ -50,7 +51,7 @@ class ReturnForm extends \yii\base\Widget
      *          7           Неверная сумма депозита (менее одного рубля)
      *          7           Ошибка системы
      */
-    public function run($type)
+    public function run()
     {
         if (empty($this->orderModel)) {
             return false;
@@ -68,8 +69,11 @@ class ReturnForm extends \yii\base\Widget
                 'orderId' => urlencode($this->orderModel->order_info),
                 'amount' => urlencode($this->orderModel->getCost() * 100) // передача суммы в копейках
             );
+        if ($this->type === "reverse"){
+            unset($data["amount"]);
+        }
 
-        $response = $module->gateway($type . '.do', $data);
+        $response = $module->gateway($this->type . '.do', $data);
 
         if (isset($response['errorCode']) && ($response['errorCode'] === "0")) {
             //echo 'Успех';
