@@ -21,6 +21,7 @@ class Module extends \yii\base\Module
     public $currency = 'RUB';
     public $username = '';
     public $password = '';
+    public $orderModel = 'dvizh\order\models\Order';
 
     public function init()
     {

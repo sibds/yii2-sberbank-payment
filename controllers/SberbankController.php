@@ -28,7 +28,7 @@ class SberbankController extends Controller
 
         if(isset($response['OrderStatus'])&&$response['OrderStatus']==2){
             $pmOrderId = (int)$response['OrderNumber'];
-            $orderModel = yii::$app->orderModel;
+            $orderModel = $module->orderModel;
             $orderModel = $orderModel::findOne($pmOrderId);
             if (!$orderModel) {
                 throw new NotFoundHttpException('The requested order does not exist.');
