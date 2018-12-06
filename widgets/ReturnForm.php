@@ -50,7 +50,7 @@ class ReturnForm extends \yii\base\Widget
      *          7           Неверная сумма депозита (менее одного рубля)
      *          7           Ошибка системы
      */
-    public function run()
+    public function run($type)
     {
         if (empty($this->orderModel)) {
             return false;
@@ -69,7 +69,7 @@ class ReturnForm extends \yii\base\Widget
                 'amount' => urlencode($this->orderModel->getCost() * 100) // передача суммы в копейках
             );
 
-        $response = $module->gateway('refund.do', $data);
+        $response = $module->gateway($type . '.do', $data);
 
         if (isset($response['errorCode']) && ($response['errorCode'] === "0")) {
             //echo 'Успех';
