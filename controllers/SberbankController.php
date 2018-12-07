@@ -29,7 +29,8 @@ class SberbankController extends Controller
         if(isset($response['OrderStatus'])&&$response['OrderStatus']==2){
             $pmOrderId = (int)$response['OrderNumber'];
             $orderModel = $module->orderModel;
-            $orderModel = $orderModel::findOne($pmOrderId);
+            $orderModel = is_null($module->getModel)?$orderModel::findOne($pmOrderId):(is_callable($module->getModel)?call_user_func($module->getModel, [$pmOrderId]):$orderModel::findOne($module->getModel));
+            //$orderModel = $orderModel::findOne($pmOrderId);
             if (!$orderModel) {
                 throw new NotFoundHttpException('The requested order does not exist.');
             }
