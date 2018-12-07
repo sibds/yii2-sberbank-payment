@@ -27,14 +27,28 @@ class PaymentForm extends \yii\base\Widget
          */
         $module = yii::$app->getModule('sberbank');
 
+        $id = is_null($module->getId)?$this->orderModel->getId():(is_callable($module->getId)?call_user_func($module->getId, [$this->orderModel]):$module->getId);
         $data = array(
             'userName' => $module->username,
             'password' => $module->password,
-            'orderNumber' => urlencode($this->orderModel->getId()),
+            'orderNumber' => urlencode($id),
             'amount' => urlencode($this->orderModel->getCost() * 100), // передача данных в копейках/центах
-            'returnUrl' => Url::toRoute(['/sberbank/sberbank/result', 'order' => urlencode($this->orderModel->getId())], true),
+            'returnUrl' => Url::toRoute(['/sberbank/sberbank/result', 'order' => urlencode($id)], true),            
             //'failUrl' => Url::toRoute([$module->failUrl], true),
         );
+
+        if(!is_null($module->sessionTimeout)){
+            $data['sessionTimeoutSecs'] = $module->sessionTimeout;
+        }
+        
+        if(!is_null($module->getDescription)){
+            if(is_callable($module->getDescription)){
+                $data['description'] = call_user_func($module->getDescription, [$this->orderModel]);
+            } else{
+                $data['description'] = $module->getDescription;
+            }
+        }
+
 
         /**
          * ЗАПРОС РЕГИСТРАЦИИ ОДНОСТАДИЙНОГО ПЛАТЕЖА В ПЛАТЕЖНОМ ШЛЮЗЕ
