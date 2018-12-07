@@ -22,6 +22,10 @@ class Module extends \yii\base\Module
     public $username = '';
     public $password = '';
     public $orderModel = 'dvizh\order\models\Order';
+    public $getId = null;
+    public $getModel = null;
+    public $getDescription = null;
+    public $sessionTimeout = null;// in seconds
 
     public function init()
     {
