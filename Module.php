@@ -26,6 +26,7 @@ class Module extends \yii\base\Module
     public $getModel = null;
     public $getDescription = null;
     public $sessionTimeout = null;// in seconds
+    public $refundRate = 100; // percentage of refund
 
     public function init()
     {

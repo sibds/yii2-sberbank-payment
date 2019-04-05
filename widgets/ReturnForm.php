@@ -67,7 +67,7 @@ class ReturnForm extends \yii\base\Widget
                 'userName' => $module->username,
                 'password' => $module->password,
                 'orderId' => urlencode($this->orderModel->order_info),
-                'amount' => urlencode($this->orderModel->getCost() * 100) // передача суммы в копейках
+                'amount' => urlencode($this->orderModel->getCost() * $module->refundRate) // передача суммы в копейках
             );
         if ($this->type === "reverse"){
             unset($data["amount"]);
