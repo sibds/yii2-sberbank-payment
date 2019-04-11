@@ -27,6 +27,7 @@ class Module extends \yii\base\Module
     public $getDescription = null;
     public $sessionTimeout = null;// in seconds
     public $refundRate = 100; // percentage of refund
+    public $logCategory = false;
 
     public function init()
     {
@@ -34,6 +35,9 @@ class Module extends \yii\base\Module
     }
 
     public function gateway($method, $data) {
+        if (!empty($this->logCategory)){
+            yii::info("Request: " . ($this->testServer?$this->gatewayTestUrl:$this->gatewayUrl).$method . "\nData: " . json_encode($data) . "\n", $this->logCategory);
+        }
         $curl = curl_init(); // Инициализируем запрос
         curl_setopt_array($curl, array(
             CURLOPT_URL => ($this->testServer?$this->gatewayTestUrl:$this->gatewayUrl).$method, // Полный адрес метода
@@ -42,7 +46,9 @@ class Module extends \yii\base\Module
             CURLOPT_POSTFIELDS => http_build_query($data) // Данные в запросе
         ));
         $response = curl_exec($curl); // Выполненяем запрос
-
+        if (!empty($this->logCategory)){
+            yii::info("Response: " . $response . "\n", $this->logCategory);
+        }
         $response = json_decode($response, true); // Декодируем из JSON в массив
         curl_close($curl); // Закрываем соединение
         return $response; // Возвращаем ответ
