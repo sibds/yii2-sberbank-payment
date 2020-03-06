@@ -28,6 +28,7 @@ class Module extends \yii\base\Module
     public $sessionTimeout = null;// in seconds
     public $refundRate = 100; // percentage of refund
     public $logCategory = false;
+    public $supportCart = false;
 
     public function init()
     {

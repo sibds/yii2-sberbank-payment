@@ -10,6 +10,7 @@ class PaymentForm extends \yii\base\Widget
     public $description = '';
     public $orderModel;
     public $autoSend = false;
+    public $cart = false;
 
     public function init()
     {
@@ -39,6 +40,18 @@ class PaymentForm extends \yii\base\Widget
 
         if(!is_null($module->sessionTimeout)){
             $data['sessionTimeoutSecs'] = $module->sessionTimeout;
+        }
+
+        if($module->supportCart&&$this->cart){
+            $data['orderBundle'] = [];
+            if($this->orderModel->email!=''){
+                $data['orderBundle']['customerDetails']['email'] = $this->orderModel->email;                
+            }elseif ($this->orderModel->phone!='') {             
+                $data['orderBundle']['customerDetails']['phone'] = $this->orderModel->phone;              
+            }
+
+            $data['orderBundle']['cartItems']['items'] = $this->cart;
+            
         }
         
         if(!is_null($module->getDescription)){
