@@ -44,14 +44,17 @@ class PaymentForm extends \yii\base\Widget
 
         if($module->supportCart&&$this->cart){
             $data['orderBundle'] = [];
+            $data['taxSystem'] = $module->taxSystem;
+            $data['orderBundle']['orderCreationDate'] = date('c');            
             if($this->orderModel->email!=''){
                 $data['orderBundle']['customerDetails']['email'] = $this->orderModel->email;                
             }elseif ($this->orderModel->phone!='') {             
                 $data['orderBundle']['customerDetails']['phone'] = $this->orderModel->phone;              
             }
+            //$data['orderBundle']['additionalOfdParams'] = [];
 
             $data['orderBundle']['cartItems']['items'] = $this->cart;
-            
+            $data['orderBundle'] = json_encode($data['orderBundle']);            
         }
         
         if(!is_null($module->getDescription)){
@@ -62,6 +65,8 @@ class PaymentForm extends \yii\base\Widget
             }
         }
 
+        //var_dump($data);
+        
 
         /**
          * ЗАПРОС РЕГИСТРАЦИИ ОДНОСТАДИЙНОГО ПЛАТЕЖА В ПЛАТЕЖНОМ ШЛЮЗЕ
@@ -92,6 +97,9 @@ class PaymentForm extends \yii\base\Widget
          *        7            Системная ошибка.
          */
         $response = $module->gateway('register.do', $data);
+
+        //var_dump($response);
+        //die();
 
         /**
          * ЗАПРОС РЕГИСТРАЦИИ ДВУХСТАДИЙНОГО ПЛАТЕЖА В ПЛАТЕЖНОМ ШЛЮЗЕ

@@ -29,6 +29,7 @@ class Module extends \yii\base\Module
     public $refundRate = 100; // percentage of refund
     public $logCategory = false;
     public $supportCart = false;
+    public $taxSystem = 0;
 
     public function init()
     {
