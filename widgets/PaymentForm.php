@@ -111,13 +111,18 @@ class PaymentForm extends \yii\base\Widget
 //	$response = $module->gateway('registerPreAuth.do', $data);
 
         if (isset($response['errorCode'])) { // В случае ошибки вывести ее
+            if(!$this->autoSend){
+                return Url::toRoute([$module->failUrl], true);
+            }
             header('Location: ' . Url::toRoute([$module->failUrl], true));
             //echo 'Ошибка #' . $response['errorCode'] . ': ' . $response['errorMessage'];
             die();
         } else { // В случае успеха перенаправить пользователя на плетжную форму
             $this->orderModel->order_info = $response['orderId'];
             $this->orderModel->save();
-
+            if(!$this->autoSend){
+                return $response['formUrl'];
+            }
             header('Location: ' . $response['formUrl']);
             die();
         }
