@@ -16,7 +16,7 @@ class SberbankController extends Controller
 
     function actionResult($order, $orderId)
     {
-        $module = Yii::$app->getModule('sberbank');
+        $module = Yii::$app->controller->module;
 
         $data = array(
             'userName' => $module->username,
