@@ -46,6 +46,11 @@ class PaymentForm extends \yii\base\Widget
             $data['orderBundle'] = [];
             $data['taxSystem'] = $module->taxSystem;
             $data['orderBundle']['orderCreationDate'] = date('c');            
+            
+            if(strlen($this->orderModel->client_name)>9){
+                $data['orderBundle']['customerDetails']['fullName'] = $this->orderModel->client_name;
+            }
+            
             if($this->orderModel->email!=''){
                 $data['orderBundle']['customerDetails']['email'] = $this->orderModel->email;                
             }elseif ($this->orderModel->phone!='') {             
