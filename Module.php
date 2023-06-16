@@ -43,6 +43,9 @@ class Module extends \yii\base\Module
         $curl = curl_init(); // Инициализируем запрос
         curl_setopt_array($curl, array(
             CURLOPT_URL => ($this->testServer?$this->gatewayTestUrl:$this->gatewayUrl).$method, // Полный адрес метода
+            CURLOPT_VERBOSE => true,
+            CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_RETURNTRANSFER => true, // Возвращать ответ
             CURLOPT_POST => true, // Метод POST
             CURLOPT_POSTFIELDS => http_build_query($data) // Данные в запросе
